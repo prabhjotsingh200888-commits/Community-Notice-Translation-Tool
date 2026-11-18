@@ -1,0 +1,178 @@
+/* CSS: the LOOK of the page */
+
+/* ---------- Basic page ---------- */
+body {
+  font-family: Arial, sans-serif;
+  background: #eef3f7 url("bg.svg");   /* background image (repeats like tiles) */
+  color: #17252f;
+  margin: 0;
+  line-height: 1.6;
+  background: #eef3f7 url("image.png");   
+
+}
+
+header {
+  background: #0b5c8a;
+  color: white;
+  padding: 24px 16px;
+  border-bottom: 6px solid #f2a900;   /* yellow line under the header */
+  text-align: center;
+}
+header h1 { margin: 0 0 8px; font-size: 2rem; }
+header p { margin: 0; max-width: 650px; margin: auto; }
+
+main { max-width: 800px; margin: auto; padding: 16px; }
+
+h2 { margin-top: 0; color: #0b5c8a; }
+h3 { margin: 10px 0 4px; font-size: 1.25rem; }
+
+/* ---------- Skip link (hidden until you press Tab) ---------- */
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 10px; top: 10px; background: white; color: black; padding: 8px; z-index: 10; }
+
+/* ---------- Navigation bar (a white bar at the top that stays when you scroll) ---------- */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 10px 20px;
+  border-bottom: 1px solid #c9d6df;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;      /* stays at the top while scrolling */
+  top: 0;
+  z-index: 5;
+}
+nav .brand {
+  font-weight: bold;
+  font-size: 1.15rem;
+  color: #0b5c8a;
+  margin-right: auto;    /* pushes the links to the right side */
+}
+nav a {
+  color: #0b5c8a;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 20px;   /* round pill shape */
+}
+nav a:hover { background: #dcebf5; }
+/* The page you are on now (class "active" in the HTML) */
+nav a.active { background: #0b5c8a; color: white; }
+
+/* Space for the sticky bar when jumping to a link like #notices */
+html { scroll-padding-top: 70px; }
+
+/* ---------- Footer ---------- */
+footer {
+  background: #08476a;
+  color: white;
+  text-align: center;
+  padding: 24px 16px;
+  margin-top: 30px;
+  border-top: 6px solid #f2a900;
+}
+footer p { margin: 4px 0; }
+footer a { color: white; font-weight: bold; margin: 0 8px; }
+footer a:hover { color: #f2a900; }
+
+/* Keep the footer low on short pages (like About Us) */
+main { min-height: 60vh; }
+
+/* ---------- About page ---------- */
+.box ul { margin: 6px 0; padding-left: 22px; }
+.box li { margin-bottom: 4px; }
+.box a { color: #0b5c8a; font-weight: bold; }
+
+/* ---------- Boxes (cards) ---------- */
+.box {
+  background: white;
+  border: 1px solid #c9d6df;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);   /* soft shadow */
+}
+
+/* ---------- Form fields and buttons ---------- */
+label { display: block; font-weight: bold; margin-top: 10px; margin-bottom: 4px; }
+
+input, select, textarea, button {
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #9bb0bf;
+  border-radius: 6px;
+}
+textarea { min-height: 70px; }
+
+input:hover, select:hover, textarea:hover { border-color: #0b5c8a; }
+
+button {
+  background: #f2a900;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.1s;   /* smooth change */
+}
+button:hover { background: #ffc233; }
+button:active { transform: scale(0.98); }       /* small "press" effect */
+
+/* The create form is hidden at first. JavaScript shows it for Admin. */
+#form { display: none; border-top: 5px solid #f2a900; }
+
+/* ---------- Result count ---------- */
+#count { font-weight: bold; color: #0b5c8a; }
+
+/* ---------- Notices ---------- */
+.notice { border-left: 8px solid #0b5c8a; transition: transform 0.2s, box-shadow 0.2s; }
+.notice:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15); }
+
+/* A different colour for each category */
+.notice.Health    { border-left-color: #1d7a46; }   /* green */
+.notice.Education { border-left-color: #6a3fb5; }   /* purple */
+.notice.Safety    { border-left-color: #b3261e; }   /* red */
+.notice.Events    { border-left-color: #d97b00; }   /* orange */
+
+/* Notices that are not live (expired or scheduled) look faded and dashed */
+.notlive { opacity: 0.75; border-style: dashed; }
+
+.notice small { color: #4d6270; display: block; margin-top: 10px; }
+
+/* ---------- Small coloured tags ---------- */
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin: 2px 4px 2px 0;
+  background: #f5f8fa;
+}
+.green  { color: #1d7a46; background: #e6f4ec; }
+.orange { color: #a65d00; background: #fff3dc; }
+.red    { color: #b3261e; background: #fdeceb; }
+
+/* ---------- LANGUAGE: by default show English and hide the other languages ---------- */
+.pa, .hi, .ur { display: none; }
+/* When JavaScript sets the class "show-pa" (or show-hi, show-ur), do the opposite */
+#notices.show-pa .pa, #notices.show-hi .hi, #notices.show-ur .ur { display: block; }
+#notices.show-pa .en, #notices.show-hi .en, #notices.show-ur .en { display: none; }
+
+/* ---------- Accessibility: clear outline when using the keyboard ---------- */
+:focus { outline: 3px solid #ff6f00; outline-offset: 2px; }
+
+/* ---------- Phones: smaller title and padding ---------- */
+@media (max-width: 600px) {
+  header h1 { font-size: 1.5rem; }
+  main { padding: 10px; }
+}
+
+/* ---------- Phones: nav wraps and is centered ---------- */
+@media (max-width: 600px) {
+  nav { flex-wrap: wrap; justify-content: center; padding: 8px; }
+  nav .brand { width: 100%; text-align: center; margin-right: 0; }
+}

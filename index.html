@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Community Notice Translation Tool</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<a class="skip" href="#notices">Skip to notices</a>
+
+<nav>
+  <span class="brand">Community Notices</span>
+  <a class="active" href="index.html">Home</a>
+  <a href="about.html">About Us</a>
+</nav>
+
+<header>
+  <h1>Community Notice Translation Tool</h1>
+  <p>Problem: multilingual communities may miss notices written in only one language.<br>
+     Goal: publish community notices in more than one language.</p>
+</header>
+
+<main>
+  <!-- Role and language -->
+  <div class="box">
+    <label for="role">Role</label>
+    <select id="role" onchange="updateList()">
+      <option value="visitor">Visitor</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <label for="language">Read notices in</label>
+    <select id="language" onchange="updateList()">
+      <option value="en">English</option>
+      <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+      <option value="hi">हिन्दी (Hindi)</option>
+      <option value="ur">اردو (Urdu)</option>
+    </select>
+  </div>
+
+  <!-- Create notice (only Admin can see this) -->
+  <div class="box" id="form">
+    <h2>Create a notice</h2>
+
+    <label for="category">Category</label>
+    <select id="category">
+      <option>Health</option>
+      <option>Education</option>
+      <option>Safety</option>
+      <option>Events</option>
+    </select>
+
+    <label for="titleEn">Title (English)</label>
+    <input id="titleEn">
+    <label for="textEn">Message (English)</label>
+    <textarea id="textEn"></textarea>
+
+    <button onclick="translateNotice()">Translate to Punjabi, Hindi and Urdu</button>
+    <p id="translateMsg" aria-live="polite"></p>
+
+    <label for="titlePa">Title (Punjabi)</label>
+    <input id="titlePa">
+    <label for="textPa">Message (Punjabi)</label>
+    <textarea id="textPa"></textarea>
+
+    <label for="titleHi">Title (Hindi)</label>
+    <input id="titleHi">
+    <label for="textHi">Message (Hindi)</label>
+    <textarea id="textHi"></textarea>
+
+    <label for="titleUr">Title (Urdu)</label>
+    <input id="titleUr" dir="rtl">
+    <label for="textUr">Message (Urdu)</label>
+    <textarea id="textUr" dir="rtl"></textarea>
+
+    <small>You can also leave a language empty. Its status will be "Pending".</small>
+
+    <label for="publish">Publish date</label>
+    <input type="date" id="publish">
+    <label for="expiry">Expiry date</label>
+    <input type="date" id="expiry">
+
+    <button onclick="addNotice()">Save notice</button>
+  </div>
+
+  <!-- Search and category filter -->
+  <div class="box">
+    <label for="search">Search</label>
+    <input id="search" oninput="updateList()" placeholder="Type a word...">
+
+    <label for="filter">Category</label>
+    <select id="filter" onchange="updateList()">
+      <option>All</option>
+      <option>Health</option>
+      <option>Education</option>
+      <option>Safety</option>
+      <option>Events</option>
+    </select>
+  </div>
+
+  <p id="count" aria-live="polite"></p>
+
+  <!-- All notices. Each notice has one part for each language (classes: en, pa, hi, ur) -->
+  <div id="notices">
+
+    <div class="box notice Health">
+      <span class="tag">Health</span>
+      <span class="tag green">Live</span>
+      <span class="tag green">Punjabi: Translated</span>
+      <span class="tag green">Hindi: Translated</span>
+      <span class="tag green">Urdu: Translated</span>
+      <div class="en">
+        <h3>Free health camp</h3>
+        <p>A free health check-up camp will be held at the community hall this Sunday.</p>
+      </div>
+      <div class="pa">
+        <h3>ਮੁਫ਼ਤ ਸਿਹਤ ਕੈਂਪ</h3>
+        <p>ਇਸ ਐਤਵਾਰ ਕਮਿਊਨਿਟੀ ਹਾਲ ਵਿੱਚ ਮੁਫ਼ਤ ਸਿਹਤ ਜਾਂਚ ਕੈਂਪ ਲੱਗੇਗਾ।</p>
+      </div>
+      <div class="hi">
+        <h3>मुफ़्त स्वास्थ्य शिविर</h3>
+        <p>इस रविवार सामुदायिक भवन में मुफ़्त स्वास्थ्य जाँच शिविर लगेगा।</p>
+      </div>
+      <div class="ur" dir="rtl">
+        <h3>مفت صحت کیمپ</h3>
+        <p>اس اتوار کمیونٹی ہال میں مفت صحت معائنہ کیمپ لگے گا۔</p>
+      </div>
+      <small>Publish: 2026-01-01 | Expiry: 2030-12-31</small>
+    </div>
+
+    <div class="box notice Safety">
+      <span class="tag">Safety</span>
+      <span class="tag green">Live</span>
+      <span class="tag green">Punjabi: Translated</span>
+      <span class="tag green">Hindi: Translated</span>
+      <span class="tag orange">Urdu: Pending</span>
+      <div class="en">
+        <h3>Water supply off</h3>
+        <p>Water will be off on Thursday from 9 AM to 1 PM for pipe repair.</p>
+      </div>
+      <div class="pa">
+        <h3>ਪਾਣੀ ਦੀ ਸਪਲਾਈ ਬੰਦ</h3>
+        <p>ਪਾਈਪ ਦੀ ਮੁਰੰਮਤ ਕਾਰਨ ਵੀਰਵਾਰ ਨੂੰ ਸਵੇਰੇ 9 ਵਜੇ ਤੋਂ ਦੁਪਹਿਰ 1 ਵਜੇ ਤੱਕ ਪਾਣੀ ਬੰਦ ਰਹੇਗਾ।</p>
+      </div>
+      <div class="hi">
+        <h3>पानी की आपूर्ति बंद</h3>
+        <p>पाइप की मरम्मत के कारण गुरुवार को सुबह 9 बजे से दोपहर 1 बजे तक पानी बंद रहेगा।</p>
+      </div>
+      <div class="ur">
+        <p><i>Urdu translation is pending. Showing English.</i></p>
+        <h3>Water supply off</h3>
+        <p>Water will be off on Thursday from 9 AM to 1 PM for pipe repair.</p>
+      </div>
+      <small>Publish: 2026-01-01 | Expiry: 2030-12-31</small>
+    </div>
+
+    <div class="box notice Education">
+      <span class="tag">Education</span>
+      <span class="tag green">Live</span>
+      <span class="tag green">Punjabi: Translated</span>
+      <span class="tag green">Hindi: Translated</span>
+      <span class="tag green">Urdu: Translated</span>
+      <div class="en">
+        <h3>School closed tomorrow</h3>
+        <p>School will be closed tomorrow.</p>
+      </div>
+      <div class="pa">
+        <h3>ਸਕੂਲ ਕੱਲ੍ਹ ਬੰਦ</h3>
+        <p>ਸਕੂਲ ਕੱਲ੍ਹ ਬੰਦ ਰਹੇਗਾ।</p>
+      </div>
+      <div class="hi">
+        <h3>स्कूल कल बंद</h3>
+        <p>स्कूल कल बंद रहेगा।</p>
+      </div>
+      <div class="ur" dir="rtl">
+        <h3>اسکول کل بند</h3>
+        <p>اسکول کل بند رہے گا۔</p>
+      </div>
+      <small>Publish: 2026-01-01 | Expiry: 2030-12-31</small>
+    </div>
+
+    <div class="box notice Events">
+      <span class="tag">Events</span>
+      <span class="tag green">Live</span>
+      <span class="tag green">Punjabi: Translated</span>
+      <span class="tag orange">Hindi: Pending</span>
+      <span class="tag orange">Urdu: Pending</span>
+      <div class="en">
+        <h3>Community meeting</h3>
+        <p>Meeting at the community hall on Friday at 5 PM. Everyone is welcome.</p>
+      </div>
+      <div class="pa">
+        <h3>ਕਮਿਊਨਿਟੀ ਮੀਟਿੰਗ</h3>
+        <p>ਸ਼ੁੱਕਰਵਾਰ ਨੂੰ ਸ਼ਾਮ 5 ਵਜੇ ਕਮਿਊਨਿਟੀ ਹਾਲ ਵਿੱਚ ਮੀਟਿੰਗ ਹੋਵੇਗੀ। ਸਭ ਦਾ ਸਵਾਗਤ ਹੈ।</p>
+      </div>
+      <div class="hi">
+        <p><i>Hindi translation is pending. Showing English.</i></p>
+        <h3>Community meeting</h3>
+        <p>Meeting at the community hall on Friday at 5 PM. Everyone is welcome.</p>
+      </div>
+      <div class="ur">
+        <p><i>Urdu translation is pending. Showing English.</i></p>
+        <h3>Community meeting</h3>
+        <p>Meeting at the community hall on Friday at 5 PM. Everyone is welcome.</p>
+      </div>
+      <small>Publish: 2026-01-01 | Expiry: 2030-12-31</small>
+    </div>
+
+    <div class="box notice Events notlive">
+      <span class="tag">Events</span>
+      <span class="tag red">Expired</span>
+      <span class="tag orange">Punjabi: Pending</span>
+      <span class="tag orange">Hindi: Pending</span>
+      <span class="tag orange">Urdu: Pending</span>
+      <div class="en">
+        <h3>Old village mela</h3>
+        <p>This event has finished.</p>
+      </div>
+      <div class="pa">
+        <p><i>Punjabi translation is pending. Showing English.</i></p>
+        <h3>Old village mela</h3>
+        <p>This event has finished.</p>
+      </div>
+      <div class="hi">
+        <p><i>Hindi translation is pending. Showing English.</i></p>
+        <h3>Old village mela</h3>
+        <p>This event has finished.</p>
+      </div>
+      <div class="ur">
+        <p><i>Urdu translation is pending. Showing English.</i></p>
+        <h3>Old village mela</h3>
+        <p>This event has finished.</p>
+      </div>
+      <small>Publish: 2025-01-01 | Expiry: 2025-02-01</small>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <p><b>Community Notice Translation Tool</b></p>
+  <p>Notices in many languages, so no one misses important news.</p>
+  <p><a href="index.html">Home</a> | <a href="about.html">About Us</a></p>
+  <p>Group project made with HTML, CSS and JavaScript</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
